@@ -1,19 +1,19 @@
-def century(yr)
-  which_century = yr / 100 + 1
-  which_century -= 1 if yr % 100 == 0
-  which_century = which_century.to_s
+def century(year)
+  century = year / 100 + 1
+  century -= 1 if year % 100 == 0
+  century.to_s + century_suffix(century)
+end
 
-  year = yr.to_s
+def century_suffix(century)
+  return 'th' if [11, 12, 13].include?(century % 100)
+  last_digit = century % 10
 
-  if year.end_with?('1')
-    century = which_century + 'st'    
-  elsif year.end_with?('2')
-    century = which_century + 'nd'
-  elsif year.end_with?('3')
-    century = which_century + 'rd'  
-  else
-    century = which_century + 'th'
-  end	
+  case last_digit
+  when 1 then 'st'
+  when 2 then 'nd'
+  when 3 then 'rd'
+  else 'th'
+  end
 end
 
 puts century(2000) == '20th'
